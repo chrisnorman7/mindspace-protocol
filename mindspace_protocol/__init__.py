@@ -43,6 +43,11 @@ class MindspaceParser:
         args = list(args)
         args.extend(a)
         kwargs.update(kw)
+        return self.handle_command(name, *args, **kwargs)
+
+    def handle_command(self, *args, **kwargs):
+        name = args[0]
+        args = args[1:]
         if name in self.commands:
             cmd = self.commands[name]
             cmd(*args, **kwargs)
