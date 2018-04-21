@@ -82,16 +82,18 @@ class MindspaceParser:
         """Decorate a command for this parser. If name is not None it will be
         used instead of func.__name__."""
 
-        def inner(func, name=None):
+        def inner(func):
             if name is None:
-                name = func.__name__
-            self.commands[name] = func
+                _name = func.__name__
+            else:
+                _name = name
+            self.commands[_name] = func
             return func
 
         if func is None:
             return inner
         else:
-            return inner(func, name=name)
+            return inner(func)
 
     def prepare_data(self, name, *args, **kwargs):
         """Prepare name, args and kwargs for sending."""

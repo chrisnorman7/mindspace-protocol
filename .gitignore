@@ -97,3 +97,4 @@ ENV/
 *.yaml
 *.sqlite3
 env-client
+.pytest_cache

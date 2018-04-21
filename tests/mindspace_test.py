@@ -103,3 +103,10 @@ def test_custom_huh():
     assert p.name == name
     assert p.args == args
     assert p.kwargs == kwargs
+
+
+def test_custom_name():
+    p = MindspaceParser()
+    p.command(name='test')(print)
+    assert print.__name__ not in p.commands
+    assert p.commands['test'] is print
