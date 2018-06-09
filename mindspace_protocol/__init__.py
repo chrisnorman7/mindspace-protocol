@@ -52,8 +52,7 @@ class MindspaceParser:
             cmd = self.commands[name]
             cmd(*args, **kwargs)
             return cmd
-        else:
-            return self.huh(name, *args, **kwargs)
+        return self.huh(name, *args, **kwargs)
 
     def huh(self, name, *args, **kwargs):
         """No commands found."""
