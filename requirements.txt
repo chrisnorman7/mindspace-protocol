@@ -1,4 +1,1 @@
 attrs
-msgpack-python
-pytest
-flake8

@@ -55,7 +55,7 @@ def with_kwargs(hello=None, this=None):
 
 
 @parser.command
-def with_both(first, second, this, name):
+def with_both(first, second, this=None, name=None):
     assert first == 'hello'
     assert second == 'world'
     assert this == 'works'
@@ -65,32 +65,29 @@ def with_both(first, second, this, name):
 
 def test_no_arguments():
     with raises(NoArgumentsWorks):
-        parser.handle(['no_arguments', [], {}])
+        parser.handle_command('no_arguments')
 
 
 def test_with_arguments():
     with raises(WithArgumentsWorks):
-        parser.handle(['with_arguments', ['hello', 'world'], {}])
+        parser.handle_command('with_arguments', 'hello', 'world')
 
 
 def test_with_kwargs():
     with raises(WithKwargsWorks):
-        parser.handle(['with_kwargs', [], {'hello': 'world', 'this': 'works'}])
+        parser.handle_command('with_kwargs', hello='world', this='works')
 
 
 def test_with_both():
     with raises(WithBothWorks):
-        parser.handle(
-            [
-                'with_both', ['hello', 'world'],
-                {'this': 'works', 'name': __name__}
-            ]
+        parser.handle_command(
+            'with_both', 'hello', 'world', this='works', name=__name__
         )
 
 
 def test_command_not_found():
     with raises(CommandNotFound):
-        parser.handle(('no command called this, hahahaha!', (), {}))
+        parser.handle_command('no command called this, hahahaha!')
 
 
 def test_custom_huh():
@@ -99,7 +96,7 @@ def test_custom_huh():
     args = (1, 2, 3)
     kwargs = {'hello': 'world'}
     with raises(Works):
-        p.handle((name, args, kwargs))
+        p.handle_command(name, *args, **kwargs)
     assert p.name == name
     assert p.args == args
     assert p.kwargs == kwargs
