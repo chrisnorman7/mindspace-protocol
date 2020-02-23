@@ -37,7 +37,7 @@ class MindspaceParser:
 
     def huh(self, name, *args, **kwargs):
         """No commands found."""
-        raise CommandNotFound(name)
+        raise CommandNotFound(self, name)
 
     def command(self, func=None, name=None):
         """Decorate a command for this parser. If name is not None it will be

@@ -86,8 +86,12 @@ def test_with_both():
 
 
 def test_command_not_found():
-    with raises(CommandNotFound):
-        parser.handle_command('no command called this, hahahaha!')
+    name = 'no command called this, hahahaha!'
+    with raises(CommandNotFound) as exc:
+        parser.handle_command(name)
+    p, command = exc.value.args
+    assert command == name
+    assert p is parser
 
 
 def test_custom_huh():
